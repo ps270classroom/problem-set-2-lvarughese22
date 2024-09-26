@@ -89,6 +89,7 @@ knitr::kable(party_incumbent_promote,
              digits = 3, 
              col.names = c("Party", "Incumbency Status", 
                            "Average Promo Proportion"))
+party_incumbent_promote
 ```
 
 
