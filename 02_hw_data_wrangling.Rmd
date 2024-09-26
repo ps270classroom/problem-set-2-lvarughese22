@@ -73,6 +73,11 @@ Filter the data to just US House and US Senate races and use this to create a ti
 
 Use `knitr::kable()` to produce a nicely formatted table. In this call, set the `digits` arguments to 3 and use the `col.names` argument to pass a nicer set of names. You can use the following as a template:
 
+In the writeup, describe which type of candidate sponsored the most promoting ads on average. 
+
+ **Rubric**: 3pts for creating `party_incumbent_promote` correctly (autograder); 2pt for a nicely formatted table (PDF); 1pt for changing the column names of the output table (PDF); 1pt for correctly identifying the type of candidate with highest average (PDF)
+
+## Answer 2
 ```{r eval = FALSE}
 filtered_fb_ads <- fb_ads |>
   filter(office %in% c("US House", "US Senate"))
@@ -86,18 +91,10 @@ knitr::kable(party_incumbent_promote,
              col.names = c("Party", "Incumbency Status", 
                            "Average Promo Proportion"))
             
-        
 ```
 
-In the writeup, describe which type of candidate sponsored the most promoting ads on average. 
 
 Democratic incumbent candidates sponsored the most promoting ads on average. 
-
- **Rubric**: 3pts for creating `party_incumbent_promote` correctly (autograder); 2pt for a nicely formatted table (PDF); 1pt for changing the column names of the output table (PDF); 1pt for correctly identifying the type of candidate with highest average (PDF)
-
-## Answer 2
-
-
 
 \newpage
 
@@ -112,6 +109,33 @@ Create a histogram of this variable for just the US House races. Save the ggplot
 
 ## Answer 3
 
+```{r}
+library(ggplot2)
+
+
+
+fb_ads <- fb_ads |>
+  mutate(impressions_millions = impressions / 1000000)
+
+
+
+us_house_ads <- fb_ads |>
+  filter(office == "US House")
+
+
+plot_q3 <- ggplot(us_house_ads, aes(x =impressions_millions)) +
+  geom_histogram() + 
+  labs(title = "Facebook Ad Impressions of 
+       US House Candidates",
+       x = "Impressions (Millions)",
+       y = "Count")
+plot_q3
+
+```
+The historgram is almost an "L" shape in the sense that it has a very steep peek 
+at the left and sharply decreases as the number of impressions goes on. 
+The historgram illustrates how very few US House Candidates received more than 
+10 million ad impressions on Facebook
 
 
 \newpage
