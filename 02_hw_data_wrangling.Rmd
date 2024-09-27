@@ -49,8 +49,8 @@ Use `dplyr` functions to create a table with the number of candidates in each ty
 
 ```{r}
 library(dplyr)
-library(knitr)
 library(readr)
+library(knitr)
 
 fb_ads <- read_csv("data/fb_ads.csv")  
 
