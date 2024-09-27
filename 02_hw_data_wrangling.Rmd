@@ -157,6 +157,28 @@ You do not need to exactly match the labels, but you should have informative lab
  **Rubric:** 3pts for correct axes (autograder); 3pts for correct data fed into `ggplot` (autograder); 3pts for the correct ordering of the y-axis (PDF); 3pts for fill being mapped to `party` (autograder); 1pt for plot being in knitted output and having informative labels (PDF)
 
 ## Answer 4
+```{r}
+top_candidates <- fb_ads |>
+  filter(office == "US House") |>
+  slice_max(order_by = impressions_millions, n = 15) |>
+  mutate(cand_name_last = reorder(cand_name_last,
+                                  impressions_millions))
+
+fb_top_plot <- ggplot(top_candidates, aes(x = impressions_millions,
+                                          y = cand_name_last,
+                                          fill = party)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 15 Candidate Facebook Ad Impressions, 
+       2017-2018",
+       x = "Facebook Ad Impressions (in millions)",
+       y = "Candidate Last Name") +
+  scale_fill_manual(values = c(R = "red", D = "blue"))
+
+
+fb_top_plot
+       
+
+```
 
 
 
