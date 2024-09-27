@@ -158,20 +158,23 @@ You do not need to exactly match the labels, but you should have informative lab
 
 ## Answer 4
 ```{r}
-fb_top_plot <- ggplot(
-  fb_ads |>
-    filter(office == "US House") |>
-    slice_max(order_by = impressions_millions, n =15)|>
-    mutate(cand_name_last= reorder(cand_name_last,
-                                  impressions_millions)),
-  aes(x = impressions_millions, y = cand_name_last, fill = party)) +
-    geom_bar(stat = "identity") +
-    labs(title = "Top 15 House Candidates by Facebook Ad Impressions 2017-2018",
-         x = "Facebook Ad Impressions (in millions)",
-         y = "Candidate Last Name") +
+top_cand <- fb_ads |> 
+  filter(office =="US House") |>
+  slice_max(order_by = impressions_millions, n=15) |> 
+  mutate(cand_name_last = reorder(cand_name_last,
+                                  impressions_millions))
+
+fb_top_plot <- ggplot(top_cand, aes(x = impressions_millions, 
+                                    y = cand_name_last, 
+                                    fill = party)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Top 15 House Candidate Facebook Ad Impressions, 2017-2018",
+       x = "Facebook Ad Impressions (in millions)",
+       y = "Candidate Last Name") +
   scale_fill_manual(values = c("R" = "red", "D" = "blue"))
-  
+
 fb_top_plot
+                                  
        
 
 ```
